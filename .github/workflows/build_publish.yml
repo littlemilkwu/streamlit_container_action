@@ -14,11 +14,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: image info
-        id: image_info
-        run: echo "IMAGE=${{ secrets.DOCKERHUB_USER }}/streamlit_remove_background" >> $GITHUB_OUTPUT
       - name: build image
-        run: docker build -t ${{ steps.image_info.outputs.IMAGE }}:latest
+        run: docker build -t ${{ secrets.DOCKERHUB_USER }}/streamlit_remove_background:latest
       
       - name: docker 
-        run: docker push ${{ steps.image_info.outputs.IMAGE }}:latest
+        run: docker push ${{ secrets.DOCKERHUB_USER }}/streamlit_remove_background:latest
