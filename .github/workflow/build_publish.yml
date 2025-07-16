@@ -1,0 +1,24 @@
+name: build and push docker image to DockerHub when new commit
+on:
+  push:
+    branches: main
+  workflow_dispatch:
+jobs:
+  build_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: copy repo to vm
+        use: actions/checkout@v4
+      - name: login into DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: image info
+        id: image_info
+        run: echo "IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/streamlit_remove_background" >> $GITHUB_OUTPUT
+      - name: build image
+        run: docker build -t ${{ steps.image_info.outputs.IMAGE }}:latest
+      
+      - name: docker 
+        run: docker push ${{ steps.image_info.outputs.IMAGE }}:latest
