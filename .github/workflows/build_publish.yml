@@ -23,6 +23,6 @@ jobs:
       # - name: docker push image to registry
       #   run: docker push ${{ secrets.DOCKERHUB_USER }}/streamlit_remove_background:latest
       - name: check buildx
-        runs: |
+        run: |
           docker buildx version
           docker buildx ls
