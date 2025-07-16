@@ -17,6 +17,7 @@ WORKDIR /home/${USER}/bg_remove
 # install package
 RUN pip install -r requirements.txt
 
+# expose port
 EXPOSE 8501
 ENV PATH="/home/${USER}/.local/bin:$PATH"
 
